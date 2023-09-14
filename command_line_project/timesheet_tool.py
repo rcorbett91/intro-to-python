@@ -1,42 +1,41 @@
-days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+workdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
 def add():
+  date_to_add = ""
+  add_more_time = ""
+  entries_to_append = []
   
-  add_choice1 = ""
-  add_date = ""
-  add_list = []
-
-  while add_date.title() not in days:
-    add_date = input("\tEnter the day you want to add time for: ")
-    if add_date.title() in days:
+  while date_to_add.title() not in workdays:
+    date_to_add = input("\tEnter the day you want to add time for: ")
+    if date_to_add.title() in workdays:
       x_code = input("\tEnter the timesheet code to add time to: ")
       x_hours = input("\tEnter time worked in hours (X.XX) for " + x_code.title() + ": ")
-      x_entry = x_hours + " hrs - " + x_code.title()
-      add_item1 = "Days/"+add_date+".txt"
+      x_entry = x_hours + " hrs - " + x_code.title() 
+      add_item1 = "Days/"+date_to_add+".txt"
       f = open(add_item1, "w")
       f.write("\t"+x_entry+"\n")
       f.close
     else:
       print("\tSorry, I didn't get that properly. ")
-    while add_choice1.upper() != "N":
-      add_choice1 = input("\tDo you want to add more time to this day? ")
-      if add_choice1.upper() == "Y":
+    while add_more_time.upper() != "N":
+      add_more_time = input("\tDo you want to add more time to this day? ")
+      if add_more_time.upper() == "Y":
         x_code = input("\tEnter the timesheet code to add time to: ")
         x_hours = input("\tEnter time worked in hours (X.XX) for " + x_code.title() + ": ")
         x_entry = x_hours + " hrs - " + x_code.title()
-        add_list.append(x_entry)
-      elif add_choice1.upper() != "N":
+        entries_to_append.append(x_entry)
+      elif add_more_time.upper() != "N":
         print("\tSorry, I didn't get that properly. ")
-      for item in add_list:
-        add_item = "Days/"+add_date+".txt"
-        f = open(add_item, "a")
-        f.write("\t"+item+"\n")
-        f.close
-      add_list.clear()
+    for item in entries_to_append:
+      add_item = "Days/"+date_to_add+".txt"
+      f = open(add_item, "a")
+      f.write("\t"+item+"\n")
+      f.close
+    entries_to_append.clear()
   
 def view():
   print("\t---------------------------------\n\n\tYour weekly timesheet notes:\n")
-  for x in days:
+  for x in workdays:
       file_x = "Days/"+str(x)+".txt"
       f = open(file_x, "r")
       print("\t"+x+":")
@@ -46,7 +45,7 @@ def view():
 
 def clear_all():
   print("\t---------------------------------\n")
-  for x in days:
+  for x in workdays:
       file_x = "Days/"+str(x)+".txt"
       f = open(file_x, "w")
       f.write("\tNo time entered yet for this day.\n")
